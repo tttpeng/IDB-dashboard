@@ -46,7 +46,7 @@ s.enter(0, 1, do_something, (s,))
 def home():
     # addData()
     print('There is none root.')
-    return render_template("index.html",message='我的第一个jinja程序')
+    return render_template("index.html",message='This is IDB dashboard !!!')
     return 'Hello World!'
 
 # db.init_app(app)
@@ -109,6 +109,6 @@ def home():
 #     return render_template('form.html', message='Bad username or password', username=username)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
 
