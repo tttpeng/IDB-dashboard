@@ -6,7 +6,7 @@ from models import db
 from werkzeug.security import generate_password_hash
 
 
-
+app = create_app()
 manager = Manager(app)
 
 

@@ -16,6 +16,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object('config')
     register_database(app)
+    db.create_all()
     return app
 
 

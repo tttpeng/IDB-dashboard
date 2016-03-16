@@ -87,9 +87,12 @@ def refresh(a,b):
 
 
 def storageWorking1(is_operation):
-    pp = Product.query.filter_by(name='222').first()
-    print('-------->',pp)
-    pp.is_opeation = is_operation
+    pp = Product.query.filter_by(name='WORKING_V1.0.0').first()
+    if pp == None:
+        pp = Product()
+        pp.id = '1'
+        pp.name = 'WORKING_V1.0.0'
+    pp.is_operation = is_operation
     pp.updateTime = datetime.now()
     db.session.add(pp)
     db.session.commit()
@@ -100,7 +103,7 @@ app.config.from_object(Config())
 
 scheduler = APScheduler()
 scheduler.init_app(app)
-# scheduler.start()
+scheduler.start()
 
 #------
 
