@@ -13,7 +13,8 @@ import os, sched
 from models import Product
 from flask.ext.sqlalchemy import SQLAlchemy
 from models import db
-from app import create_app
+# from app import create_app
+from __init__ import create_app
 
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
