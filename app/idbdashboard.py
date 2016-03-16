@@ -64,7 +64,7 @@ class Config(object):
 def job1(a, b):
     print(str(a) + ' ' + str(b))
 def refresh(a,b):
-    req = Request("http://211.157.186.152:22133/api/ipad/org/0")
+    req = Request("http://www.v2ex.com/")
     try:
         response = urlopen(req)
     except HTTPError as e:
@@ -98,11 +98,11 @@ def storageWorking1(is_operation):
 
 
 
-# app.config.from_object(Config())
-#
-# scheduler = APScheduler()
-# scheduler.init_app(app)
-# scheduler.start()
+app.config.from_object(Config())
+
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
 #------
 
