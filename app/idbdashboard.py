@@ -21,8 +21,6 @@ from urllib.error import URLError, HTTPError
 
 app = create_app()
 
-
-
 import time
 from threading import Timer
 #
@@ -100,11 +98,11 @@ def storageWorking1(is_operation):
 
 
 
-app.config.from_object(Config())
-
-scheduler = APScheduler()
-scheduler.init_app(app)
-scheduler.start()
+# app.config.from_object(Config())
+#
+# scheduler = APScheduler()
+# scheduler.init_app(app)
+# scheduler.start()
 
 #------
 
