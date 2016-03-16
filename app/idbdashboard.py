@@ -82,7 +82,7 @@ def refresh(a,b):
         else:
             storageWorking1(False)
         print("good!")
-        print(response.read().decode("utf8"))
+        # print(response.read().decode("utf8"))
 
 
 def storageWorking1(is_operation):
