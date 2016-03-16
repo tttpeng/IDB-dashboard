@@ -1,6 +1,5 @@
 from flask import Flask
 from models import db
-from flask.ext.login import LoginManager
 
 VERSION = (0, 2)
 
