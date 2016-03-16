@@ -5,41 +5,135 @@ from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from urllib import request
+import urllib.request
 from datetime import datetime
 import time
 import hashlib
 import os, sched
+from models import Product
+from flask.ext.sqlalchemy import SQLAlchemy
+from models import db
+from app import create_app
+
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
+
+app = create_app()
 
 
-app = Flask(__name__)
-db = SQLAlchemy()
 
-
-
-
-
-
+import time
+from threading import Timer
+#
+# def print_time( enter_time ):
+#     print ("now is", time.time() , "enter_the_box_time is", enter_time)
+#
+#
+# print (time.time())
+# Timer(5,  print_time, ( time.time(), )).start()
+# Timer(10, print_time, ( time.time(), )).start()
+# print (time.time())
+#
+#
+#
+# new_prodcut = Product()
+# new_prodcut.id  = 1;
+# new_prodcut.name = '哈哈你猜'
+# print(new_prodcut.name)
+#
 
 # print (request.urlopen('https://www.douban.com/photos/album/1623990634/').read().decode('utf-8'))
 
 
-def refresh():
-    with request.urlopen('https://www.douban.com/photos/album/1623990634/') as f:
-        data = f.read();
-        print('Status:', f.status, f.reason)
+from flask_apscheduler import APScheduler
+
+
+class Config(object):
+    JOBS = [
+        {
+            'id': 'refresh',
+            'func': '__main__:refresh',
+            'args': (1,2),
+            'trigger': 'interval',
+            'seconds': 3
+        }
+    ]
+
+    SCHEDULER_VIEWS_ENABLED = True
+
+
+def job1(a, b):
+    print(str(a) + ' ' + str(b))
+def refresh(a,b):
+    req = Request("http://211.157.186.152:22133/api/ipad/org/0")
+    try:
+        response = urlopen(req)
+    except HTTPError as e:
+        print('The server couldnt fulfill the request.')
+        print('Error code: ', e.code)
+        storageWorking1(False)
+    except URLError as e:
+        print('We failed to reach a server.')
+        print('Reason: ', e.reason)
+        storageWorking1(False)
+    else:
+        print(response.status)
+        if response.status == 200:
+            storageWorking1(True)
+        else:
+            storageWorking1(False)
+        print("good!")
+        print(response.read().decode("utf8"))
+
+
+def storageWorking1(is_operation):
+    pp = Product.query.filter_by(name='222').first()
+    print('-------->',pp)
+    pp.is_opeation = is_operation
+    pp.updateTime = datetime.now()
+    db.session.add(pp)
+    db.session.commit()
+
+
+
+app.config.from_object(Config())
+
+scheduler = APScheduler()
+scheduler.init_app(app)
+# scheduler.start()
+
+#------
+
+def task(func, interval, delay):
+    start = time.time()
+    if delay != 0:
+        sleep(delay)
+    func()
+    end = time.time()
+    if start + interval > end:
+        Timer(start + interval - end, task, (func, interval, 0)).start()
+    else:
+        times = round(end - start / interval)  # times >= 1
+        Timer(start + (times + 1) * interval - end, task, (func, interval, 0)).start()
+
+
+def scheduler(func, interval, delay=0):
+    Timer(interval, task, (func, interval, delay)).start()
+
+def say_hello():
+    # sleep(0.7)
+    print(str(time.time()) + ' : hello')
+# scheduler(say_hello, 1, 0)
 
 
 
 
-s = sched.scheduler(time.time, time.sleep)
-def do_something(sc):
-    refresh()
-    # do your stuff
-    sc.enter(5, 1, do_something, (sc,))
 
-s.enter(0, 1, do_something, (s,))
-# s.run()
-
+# s = sched.scheduler(time.time, time.sleep)
+# def do_something(sc):
+#     refresh()
+#     # do your stuff
+#     sc.enter(5, 1, do_something, (sc,))
 
 
 @app.route('/', methods=['GET', 'POST'])

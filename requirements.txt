@@ -1,5 +1,4 @@
 Flask
 sqlalchemy
-MySQL-python
-
+pymysql
 
