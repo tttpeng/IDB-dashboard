@@ -9,23 +9,51 @@
     <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
       <schema id="1" name="test"/>
       <table id="2" parent="1" name="product"/>
-      <column id="3" parent="2" name="id">
+      <table id="3" parent="1" name="Persons"/>
+      <table id="4" parent="1" name="user"/>
+      <column id="5" parent="2" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="4" parent="2" name="name">
+      <column id="6" parent="2" name="name">
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="5" parent="2" name="host">
+      <column id="7" parent="2" name="host">
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="6" parent="2" name="is_operation">
+      <column id="8" parent="2" name="is_operation">
         <data-type>tinyint(1)</data-type>
       </column>
-      <column id="7" parent="2" name="updateTime">
+      <column id="9" parent="2" name="updateTime">
         <data-type>datetime</data-type>
       </column>
-      <key id="8" parent="2" name="PRIMARY">
+      <key id="10" parent="2" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="11" parent="3" name="Id_P">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="12" parent="3" name="LastName">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="13" parent="3" name="FirstName">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="14" parent="3" name="Address">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="15" parent="3" name="City">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="16" parent="4" name="id">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <column id="17" parent="4" name="name">
+        <data-type>varchar(20)</data-type>
+      </column>
+      <key id="18" parent="4" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>

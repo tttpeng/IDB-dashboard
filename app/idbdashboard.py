@@ -11,6 +11,7 @@ import time
 import hashlib
 import os, sched
 from models import Product
+from app import models
 from flask.ext.sqlalchemy import SQLAlchemy
 from models import db
 # from app import create_app
