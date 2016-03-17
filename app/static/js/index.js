@@ -5,8 +5,23 @@ var MaterialUI = require("material-ui")
 //import React from 'react';
 var ReactDOM = require("react-dom")
 //import ReactDOM from 'react-dom';
-
+var Main = require("./components/Main")
+var RaisedButton = require('material-ui/lib/raised-button');
 var injectTapEventPlugin = require("react-tap-event-plugin")
 //import Main from './Main'; // Our custom react component
-
-React.render(<MaterialUI.AppBar/>,document.getElementById("message-board-container"));
+injectTapEventPlugin();
+//React.render(<MaterialUI.AppBar/>,document.getElementById("message-board-container"));
+//Main.js.render(<ProdcutGrid />, document.getElementById("message-board-container"));
+var CommentBox = React.createClass({
+  render: function() {
+    return (
+      <div className="commentBox">
+        Hello, world! I am a CommentBox.
+      </div>
+    );
+  }
+});
+ReactDOM.render(
+  <Main />,
+  document.getElementById('message-board-container')
+);

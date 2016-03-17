@@ -2,16 +2,23 @@
   "name": "IDBBoard",
   "version": "1.0.0",
   "description": "js for MessageBorad",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "defshine",
   "license": "ISC",
   "dependencies": {
-    "react": "^0.14.7"
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "material-ui": "^0.14.4",
+    "react-tap-event-plugin": "^0.2.2"
   },
   "devDependencies": {
-    "jsx-loader": "^0.13.2"
+    "babel-core": "^6.7.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "6.6.0",
+    "babel-preset-react": "6.5.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
   }
 }
