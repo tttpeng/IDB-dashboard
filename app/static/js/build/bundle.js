@@ -56,9 +56,9 @@
 	//import React from 'react';
 	var ReactDOM = __webpack_require__(/*! react-dom */ 201);
 	//import ReactDOM from 'react-dom';
-	var Main = __webpack_require__(/*! ./components/Main */ 380);
+	var Main = __webpack_require__(/*! ./components/Main */ 373);
 	var RaisedButton = __webpack_require__(/*! material-ui/lib/raised-button */ 340);
-	var injectTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 374);
+	var injectTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 375);
 	//import Main from './Main'; // Our custom react component
 	injectTapEventPlugin();
 	//React.render(<MaterialUI.AppBar/>,document.getElementById("message-board-container"));
@@ -54167,27 +54167,284 @@
 	};
 
 /***/ },
-/* 373 */,
-/* 374 */
+/* 373 */
+/*!****************************!*\
+  !*** ./components/Main.js ***!
+  \****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _table = __webpack_require__(/*! material-ui/lib/table/table */ 353);
+	
+	var _table2 = _interopRequireDefault(_table);
+	
+	var _tableHeaderColumn = __webpack_require__(/*! material-ui/lib/table/table-header-column */ 358);
+	
+	var _tableHeaderColumn2 = _interopRequireDefault(_tableHeaderColumn);
+	
+	var _tableRow = __webpack_require__(/*! material-ui/lib/table/table-row */ 359);
+	
+	var _tableRow2 = _interopRequireDefault(_tableRow);
+	
+	var _tableHeader = __webpack_require__(/*! material-ui/lib/table/table-header */ 357);
+	
+	var _tableHeader2 = _interopRequireDefault(_tableHeader);
+	
+	var _tableRowColumn = __webpack_require__(/*! material-ui/lib/table/table-row-column */ 355);
+	
+	var _tableRowColumn2 = _interopRequireDefault(_tableRowColumn);
+	
+	var _tableBody = __webpack_require__(/*! material-ui/lib/table/table-body */ 354);
+	
+	var _tableBody2 = _interopRequireDefault(_tableBody);
+	
+	var _tableFooter = __webpack_require__(/*! material-ui/lib/table/table-footer */ 356);
+	
+	var _tableFooter2 = _interopRequireDefault(_tableFooter);
+	
+	var _textField = __webpack_require__(/*! material-ui/lib/text-field */ 244);
+	
+	var _textField2 = _interopRequireDefault(_textField);
+	
+	var _toggle = __webpack_require__(/*! material-ui/lib/toggle */ 320);
+	
+	var _toggle2 = _interopRequireDefault(_toggle);
+	
+	var _card = __webpack_require__(/*! material-ui/lib/card/card */ 273);
+	
+	var _card2 = _interopRequireDefault(_card);
+	
+	var _cardActions = __webpack_require__(/*! material-ui/lib/card/card-actions */ 277);
+	
+	var _cardActions2 = _interopRequireDefault(_cardActions);
+	
+	var _cardHeader = __webpack_require__(/*! material-ui/lib/card/card-header */ 278);
+	
+	var _cardHeader2 = _interopRequireDefault(_cardHeader);
+	
+	var _cardMedia = __webpack_require__(/*! material-ui/lib/card/card-media */ 285);
+	
+	var _cardMedia2 = _interopRequireDefault(_cardMedia);
+	
+	var _cardTitle = __webpack_require__(/*! material-ui/lib/card/card-title */ 287);
+	
+	var _cardTitle2 = _interopRequireDefault(_cardTitle);
+	
+	var _flatButton = __webpack_require__(/*! material-ui/lib/flat-button */ 311);
+	
+	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
+	var _cardText = __webpack_require__(/*! material-ui/lib/card/card-text */ 286);
+	
+	var _cardText2 = _interopRequireDefault(_cardText);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * In this file, we create a React component
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * which incorporates components providedby material-ui.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var styles = {
+	  propContainerStyle: {
+	    width: 200,
+	    overflow: 'hidden',
+	    margin: '20px auto 0'
+	  },
+	  propToggleHeader: {
+	    margin: '20px auto 10px'
+	  },
+	  tables: {},
+	  dddd: {
+	    width: 600,
+	    margin: '0px auto',
+	    top: 200,
+	    position: 'relative'
+	  }
+	};
+	
+	var tilesData = [{
+	  img: 'images/grid-list/00-52-29-429_640.jpg',
+	  title: 'Breakfast',
+	  author: 'jill111'
+	}, {
+	  img: 'images/grid-list/burger-827309_640.jpg',
+	  title: 'Tasty burger',
+	  author: 'pashminu'
+	}, {
+	  img: 'images/grid-list/camera-813814_640.jpg',
+	  title: 'Camera',
+	  author: 'Danson67'
+	}, {
+	  img: 'images/grid-list/morning-819362_640.jpg',
+	  title: 'Morning',
+	  author: 'fancycrave1'
+	}, {
+	  img: 'images/grid-list/hats-829509_640.jpg',
+	  title: 'Hats',
+	  author: 'Hans'
+	}, {
+	  img: 'images/grid-list/honey-823614_640.jpg',
+	  title: 'Honey',
+	  author: 'fancycravel'
+	}, {
+	  img: 'images/grid-list/vegetables-790022_640.jpg',
+	  title: 'Vegetables',
+	  author: 'jill111'
+	}, {
+	  img: 'images/grid-list/water-plant-821293_640.jpg',
+	  title: 'Water plant',
+	  author: 'BkrmadtyaKarki'
+	}];
+	
+	var tableData = [{
+	  name: 'John Smith',
+	  status: 'Employed',
+	  selected: true
+	}, {
+	  name: 'Randal White',
+	  status: 'Unemployed'
+	}, {
+	  name: 'Stephanie Sanders',
+	  status: 'Employed',
+	  selected: true
+	}, {
+	  name: 'Steve Brown',
+	  status: 'Employed'
+	}, {
+	  name: 'Joyce Whitten',
+	  status: 'Employed'
+	}, {
+	  name: 'Samuel Roberts',
+	  status: 'Employed'
+	}, {
+	  name: 'Adam Moore',
+	  status: 'Employed'
+	}];
+	
+	var Main = function (_React$Component) {
+	  _inherits(Main, _React$Component);
+	
+	  function Main(props, context) {
+	    _classCallCheck(this, Main);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Main).call(this, props, context));
+	
+	    _this.handleRequestClose = _this.handleRequestClose.bind(_this);
+	    _this.handleTouchTap = _this.handleTouchTap.bind(_this);
+	
+	    _this.state = {
+	      open: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Main, [{
+	    key: 'handleRequestClose',
+	    value: function handleRequestClose() {
+	      this.setState({
+	        open: false
+	      });
+	    }
+	  }, {
+	    key: 'handleTouchTap',
+	    value: function handleTouchTap() {
+	      this.setState({
+	        open: true
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(
+	        _card2.default,
+	        { style: styles.dddd },
+	        _react2.default.createElement(
+	          _table2.default,
+	          {
+	            style: styles.tables,
+	            height: this.state.height,
+	            fixedHeader: this.state.fixedHeader,
+	            fixedFooter: this.state.fixedFooter,
+	            selectable: this.state.selectable,
+	            multiSelectable: this.state.multiSelectable,
+	            onRowSelection: this._onRowSelection
+	          },
+	          _react2.default.createElement(
+	            _tableBody2.default,
+	            {
+	              deselectOnClickaway: this.state.deselectOnClickaway,
+	              showRowHover: this.state.showRowHover,
+	              stripedRows: this.state.stripedRows
+	            },
+	            tableData.map(function (row, index) {
+	              return _react2.default.createElement(
+	                _tableRow2.default,
+	                { key: index, selected: row.selected },
+	                _react2.default.createElement(
+	                  _tableRowColumn2.default,
+	                  null,
+	                  index
+	                ),
+	                _react2.default.createElement(
+	                  _tableRowColumn2.default,
+	                  null,
+	                  row.name
+	                ),
+	                _react2.default.createElement(
+	                  _tableRowColumn2.default,
+	                  null,
+	                  row.status
+	                )
+	              );
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Main;
+	}(_react2.default.Component);
+	
+	module.exports = Main;
+	
+	//export default Main;
+
+/***/ },
+/* 374 */,
+/* 375 */
 /*!**************************************************************!*\
   !*** ./~/react-tap-event-plugin/src/injectTapEventPlugin.js ***!
   \**************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var defaultClickRejectionStrategy = __webpack_require__(/*! ./defaultClickRejectionStrategy */ 375);
+	var defaultClickRejectionStrategy = __webpack_require__(/*! ./defaultClickRejectionStrategy */ 376);
 	
 	module.exports = function injectTapEventPlugin (strategyOverrides) {
 	  strategyOverrides = strategyOverrides || {}
 	  var shouldRejectClick = strategyOverrides.shouldRejectClick || defaultClickRejectionStrategy;
 	
 	  __webpack_require__(/*! react/lib/EventPluginHub */ 31).injection.injectEventPluginsByName({
-	    "TapEventPlugin":       __webpack_require__(/*! ./TapEventPlugin.js */ 376)(shouldRejectClick)
+	    "TapEventPlugin":       __webpack_require__(/*! ./TapEventPlugin.js */ 377)(shouldRejectClick)
 	  });
 	};
 
 
 /***/ },
-/* 375 */
+/* 376 */
 /*!***********************************************************************!*\
   !*** ./~/react-tap-event-plugin/src/defaultClickRejectionStrategy.js ***!
   \***********************************************************************/
@@ -54201,7 +54458,7 @@
 
 
 /***/ },
-/* 376 */
+/* 377 */
 /*!********************************************************!*\
   !*** ./~/react-tap-event-plugin/src/TapEventPlugin.js ***!
   \********************************************************/
@@ -54232,10 +54489,10 @@
 	var EventPluginUtils = __webpack_require__(/*! react/lib/EventPluginUtils */ 33);
 	var EventPropagators = __webpack_require__(/*! react/lib/EventPropagators */ 73);
 	var SyntheticUIEvent = __webpack_require__(/*! react/lib/SyntheticUIEvent */ 87);
-	var TouchEventUtils = __webpack_require__(/*! ./TouchEventUtils */ 377);
+	var TouchEventUtils = __webpack_require__(/*! ./TouchEventUtils */ 378);
 	var ViewportMetrics = __webpack_require__(/*! react/lib/ViewportMetrics */ 38);
 	
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 378);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 379);
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
 	var isStartish = EventPluginUtils.isStartish;
@@ -54381,7 +54638,7 @@
 
 
 /***/ },
-/* 377 */
+/* 378 */
 /*!*********************************************************!*\
   !*** ./~/react-tap-event-plugin/src/TouchEventUtils.js ***!
   \*********************************************************/
@@ -54432,7 +54689,7 @@
 
 
 /***/ },
-/* 378 */
+/* 379 */
 /*!******************************************************!*\
   !*** ./~/react-tap-event-plugin/~/fbjs/lib/keyOf.js ***!
   \******************************************************/
@@ -54473,195 +54730,6 @@
 	};
 	
 	module.exports = keyOf;
-
-/***/ },
-/* 379 */
-/*!***********************************************!*\
-  !*** ./~/material-ui/lib/MuiThemeProvider.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var MuiThemeProvider = function (_Component) {
-	  _inherits(MuiThemeProvider, _Component);
-	
-	  function MuiThemeProvider() {
-	    _classCallCheck(this, MuiThemeProvider);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(MuiThemeProvider).apply(this, arguments));
-	  }
-	
-	  _createClass(MuiThemeProvider, [{
-	    key: 'getChildContext',
-	    value: function getChildContext() {
-	      return {
-	        muiTheme: this.props.muiTheme
-	      };
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return this.props.children;
-	    }
-	  }]);
-	
-	  return MuiThemeProvider;
-	}(_react.Component);
-	
-	MuiThemeProvider.propTypes = {
-	  children: _react.PropTypes.element,
-	  muiTheme: _react.PropTypes.object
-	};
-	MuiThemeProvider.childContextTypes = {
-	  muiTheme: _react.PropTypes.object
-	};
-	exports.default = MuiThemeProvider;
-	module.exports = exports['default'];
-
-/***/ },
-/* 380 */
-/*!****************************!*\
-  !*** ./components/Main.js ***!
-  \****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	/**
-	 * In this file, we create a React component
-	 * which incorporates components providedby material-ui.
-	 */
-	
-	var React = __webpack_require__(/*! react */ 1);
-	var RaisedButton = __webpack_require__(/*! material-ui/lib/raised-button */ 340);
-	var Dialog = __webpack_require__(/*! material-ui/lib/dialog */ 310);
-	
-	var _require = __webpack_require__(/*! material-ui/lib/styles/colors */ 185);
-	
-	var deepOrange500 = _require.deepOrange500;
-	
-	var FlatButton = __webpack_require__(/*! material-ui/lib/flat-button */ 311);
-	var getMuiTheme = __webpack_require__(/*! material-ui/lib/styles/getMuiTheme */ 207);
-	var MuiThemeProvider = __webpack_require__(/*! material-ui/lib/MuiThemeProvider */ 379);
-	
-	var styles = {
-	  container: {
-	    textAlign: 'center',
-	    paddingTop: 200
-	  }
-	};
-	
-	var muiTheme = getMuiTheme({
-	  palette: {
-	    accent1Color: deepOrange500
-	  }
-	});
-	
-	var Main = function (_React$Component) {
-	  _inherits(Main, _React$Component);
-	
-	  function Main(props, context) {
-	    _classCallCheck(this, Main);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Main).call(this, props, context));
-	
-	    _this.handleRequestClose = _this.handleRequestClose.bind(_this);
-	    _this.handleTouchTap = _this.handleTouchTap.bind(_this);
-	
-	    _this.state = {
-	      open: false
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(Main, [{
-	    key: 'handleRequestClose',
-	    value: function handleRequestClose() {
-	      this.setState({
-	        open: false
-	      });
-	    }
-	  }, {
-	    key: 'handleTouchTap',
-	    value: function handleTouchTap() {
-	      this.setState({
-	        open: true
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var standardActions = React.createElement(FlatButton, {
-	        label: 'Okey',
-	        secondary: true,
-	        onTouchTap: this.handleRequestClose
-	      });
-	
-	      return React.createElement(
-	        MuiThemeProvider,
-	        { muiTheme: muiTheme },
-	        React.createElement(
-	          'div',
-	          { style: styles.container },
-	          React.createElement(
-	            Dialog,
-	            {
-	              open: this.state.open,
-	              title: 'Super Secret Password',
-	              actions: standardActions,
-	              onRequestClose: this.handleRequestClose
-	            },
-	            '1-2-3-4-5'
-	          ),
-	          React.createElement(
-	            'h1',
-	            null,
-	            'material-ui'
-	          ),
-	          React.createElement(
-	            'h2',
-	            null,
-	            'example project'
-	          ),
-	          React.createElement(RaisedButton, {
-	            label: 'Super Secret Password',
-	            primary: true,
-	            onTouchTap: this.handleTouchTap
-	          })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Main;
-	}(React.Component);
-	
-	module.exports = Main;
-	
-	//export default Main;
 
 /***/ }
 /******/ ]);
