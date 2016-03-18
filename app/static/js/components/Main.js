@@ -30,7 +30,8 @@ const styles = {
   propToggleHeader: {
     margin: '20px auto 10px',
   },
-  tables: {
+  tableRowColum: {
+    width:100,
   },
   dddd: {
     width : 600,
@@ -117,28 +118,61 @@ const tableData = [
 ];
 
 
-class Main extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
+var Main = React.createClass({
 
-    this.state = {
-      open: false,
-    };
-  }
+  getInitialState: function () {
+    return{
+      products:[],
+      displayRowCheckbox: false
+    }
+  },
 
-  handleRequestClose() {
-    this.setState({
-      open: false,
+
+  componentDidMount: function () {
+
+    console.log('got text');
+    var result = fetch('/products');
+    result.then(function(response) {
+      console.log('1111got text');
+      console.log('response', response);
+      console.log('header', response.headers.get('Content-Type'));
+      return response.json()
+    })
+        .then(json =>  {
+      var products = json.result;
+      console.log('got text', this);
+      this.submitMessage(products);
+
+    }).catch(function(ex) {
+      console.log('failed', ex)
     });
-  }
 
-  handleTouchTap() {
+
+    console.log('1111got text')
+
+  },
+
+
+
+  submitMessage : function (products) {
+    //products.map( (row, index) => (
+    //
+    //    //console.log(row);
+    //
+    //if (row.is_operation)
+    //{
+    //  row.is_operation = 'operationing';
+    //}
+    //else
+    //{
+    //  row.is_operation = 'fail';
+    //}
+    //))
+
     this.setState({
-      open: true,
+      products: products
     });
-  }
+  },
 
   render() {
 
@@ -155,15 +189,16 @@ class Main extends React.Component {
               onRowSelection={this._onRowSelection}
           >
             <TableBody
+                displayRowCheckbox={this.state.displayRowCheckbox}
                 deselectOnClickaway={this.state.deselectOnClickaway}
                 showRowHover={this.state.showRowHover}
                 stripedRows={this.state.stripedRows}
             >
-              {tableData.map( (row, index) => (
+              {this.state.products.map( (row, index) => (
                   <TableRow key={index} selected={row.selected}>
-                    <TableRowColumn>{index}</TableRowColumn>
                     <TableRowColumn>{row.name}</TableRowColumn>
-                    <TableRowColumn>{row.status}</TableRowColumn>
+                    <TableRowColumn>{row.is_operation}</TableRowColumn>
+                    <TableRowColumn>{row.updateTime}</TableRowColumn>
                   </TableRow>
               ))}
             </TableBody>
@@ -171,7 +206,7 @@ class Main extends React.Component {
         </Card>
     );
   }
-}
+});
 
 module.exports = Main
 

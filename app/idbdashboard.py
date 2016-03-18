@@ -19,6 +19,8 @@ from __init__ import create_app
 
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
+from flask import render_template, request, jsonify
+from flask import jsonify
 
 app = create_app()
 
@@ -87,11 +89,11 @@ def refresh(a,b):
 
 
 def storageWorking1(is_operation):
-    pp = Product.query.filter_by(name='WORKING_V1.0.0').first()
+    pp = Product.query.filter_by(name='WORKING_V2.0.0').first()
     if pp == None:
         pp = Product()
-        pp.id = '1'
-        pp.name = 'WORKING_V1.0.0'
+        pp.id = '2'
+        pp.name = 'WORKING_V2.0.0'
     pp.is_operation = is_operation
     pp.updateTime = datetime.now()
     db.session.add(pp)
@@ -99,11 +101,11 @@ def storageWorking1(is_operation):
 
 
 #
-# app.config.from_object(Config())
-#
-# scheduler = APScheduler()
-# scheduler.init_app(app)
-# scheduler.start()
+app.config.from_object(Config())
+
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
 #------
 
@@ -145,6 +147,12 @@ def home():
     print('There is none root.')
     return render_template("index.html",message='This is IDB dashboard !!!')
     return 'Hello World!'
+
+
+@app.route('/products',methods=['GET'])
+def list_product():
+    print(Product.list_category())
+    return jsonify(result=Product.list_category())
 
 # db.init_app(app)
 # db.app = app

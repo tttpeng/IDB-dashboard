@@ -15,6 +15,23 @@ class Product(db.Model):
     is_operation = db.Column(db.Boolean)
     updateTime = db.Column(db.DateTime)
 
+    @staticmethod
+    def list_category():
+        products = Product.query.all()
+        return [c.to_json() for c in products]
+
+    def to_json(self):
+        if (self.is_operation):
+            title = 'operation'
+        else:
+            title = 'fail'
+
+        return {
+            'name': self.name,
+            'host': self.host,
+            'is_operation': title,
+            'updateTime': self.updateTime,
+        }
 
 
 
