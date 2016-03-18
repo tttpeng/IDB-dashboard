@@ -2,7 +2,8 @@ from flask import Flask, render_template, request
 from flask import render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.sqlalchemy import SQLAlchemy
-# from flask_apscheduler import APScheduler
+from flask.ext.apscheduler import APScheduler
+# from flask_apscheduler.scheduler import APScheduler
 from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -21,6 +22,8 @@ from app.models import Product
 from app.models import db
 
 import logging
+
+from apscheduler.schedulers.background import BackgroundScheduler
 
 # 创建一个logger
 logger = logging.getLogger('mylogger')
@@ -49,13 +52,14 @@ logger.addHandler(ch)
 app = create_app()
 
 
+
     # 记录一条日志
 logger.info('foorbar')
 
 
 def job1(a, b):
     print(str(a) + ' ' + str(b))
-def refresh(a,b):
+def refresh():
     req = Request("http://www.v2ex.com/")
     try:
         response = urlopen(req)
@@ -76,7 +80,6 @@ def refresh(a,b):
         print("good!")
         # print(response.read().decode("utf8"))
 
-
 def storageWorking1(is_operation):
     # 记录一条日志
     logger.info('foorbar')
@@ -90,15 +93,10 @@ def storageWorking1(is_operation):
     db.session.add(pp)
     db.session.commit()
 
-#
-# scheduler = APScheduler()
-# scheduler.init_app(app)
-# scheduler.start()
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    # addData()
     logger.info('foorbar')
     print('There is none root.')
     return render_template("index.html",message='This is IDB dashboard !!!')
@@ -114,6 +112,12 @@ def list_product():
     print(Product.list_category())
     return jsonify(result=Product.list_category())
 
+
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(refresh, 'interval', seconds=5)
+scheduler.start()
 # db.init_app(app)
 # db.app = app
 # Base = declarative_base()
@@ -176,4 +180,5 @@ def list_product():
 
 if __name__ == "__main__":
     app.run()
+
 

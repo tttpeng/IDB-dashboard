@@ -12,23 +12,9 @@ __email__ = "crazyxin1988@gmail.com"
 __license__ = "MIT License"
 
 
-class Config(object):
-    JOBS = [
-        {
-            'id': 'refresh',
-            'func': '__main__:refresh',
-            'args': (1,2),
-            'trigger': 'interval',
-            'seconds': 3
-        }
-    ]
-
-    SCHEDULER_VIEWS_ENABLED = True
-
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
-    app.config.from_object(Config())
     register_database(app)
     db.create_all()
     return app
