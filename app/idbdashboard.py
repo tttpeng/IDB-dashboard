@@ -2,8 +2,6 @@ from flask import Flask, render_template, request
 from flask import render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.apscheduler import APScheduler
-# from flask_apscheduler.scheduler import APScheduler
 from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
