@@ -1,54 +1,26 @@
 from flask import Flask, render_template, request
-import pymysql
+from flask import render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask_apscheduler import APScheduler
 from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from urllib import request
-import urllib.request
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 from datetime import datetime
 import time
 import hashlib
 import os, sched
-from models import Product
-# from app import models
-from flask.ext.sqlalchemy import SQLAlchemy
-from models import db
-import models
-# from app import create_app
-from __init__ import create_app
+import pymysql
+from threading import Timer
 
-from urllib.request import Request, urlopen
-from urllib.error import URLError, HTTPError
-from flask import render_template, request, jsonify
-from flask import jsonify
+from app import create_app
+from app.models import Product
+
 
 app = create_app()
-
-import time
-from threading import Timer
-#
-# def print_time( enter_time ):
-#     print ("now is", time.time() , "enter_the_box_time is", enter_time)
-#
-#
-# print (time.time())
-# Timer(5,  print_time, ( time.time(), )).start()
-# Timer(10, print_time, ( time.time(), )).start()
-# print (time.time())
-#
-#
-#
-# new_prodcut = Product()
-# new_prodcut.id  = 1;
-# new_prodcut.name = '哈哈你猜'
-# print(new_prodcut.name)
-#
-
-# print (request.urlopen('https://www.douban.com/photos/album/1623990634/').read().decode('utf-8'))
-
-
-from flask_apscheduler import APScheduler
 
 
 class Config(object):
