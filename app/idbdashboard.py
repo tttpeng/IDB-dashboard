@@ -146,6 +146,9 @@ def home():
     # addData()
     print('There is none root.')
     return render_template("index.html",message='This is IDB dashboard !!!')
+
+@app.route('/hello', methods=['GET', 'POST'])
+def home2():
     return 'Hello World!'
 
 
