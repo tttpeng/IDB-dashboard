@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask import render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_apscheduler import APScheduler
+# from flask_apscheduler import APScheduler
 from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -49,6 +49,8 @@ logger.addHandler(ch)
 app = create_app()
 
 
+    # 记录一条日志
+logger.info('foorbar')
 
 
 def job1(a, b):
@@ -88,55 +90,22 @@ def storageWorking1(is_operation):
     db.session.add(pp)
     db.session.commit()
 
-
 #
-#
-scheduler = APScheduler()
-scheduler.init_app(app)
-scheduler.start()
-
-#------
-
-def task(func, interval, delay):
-    start = time.time()
-    if delay != 0:
-        sleep(delay)
-    func()
-    end = time.time()
-    if start + interval > end:
-        Timer(start + interval - end, task, (func, interval, 0)).start()
-    else:
-        times = round(end - start / interval)  # times >= 1
-        Timer(start + (times + 1) * interval - end, task, (func, interval, 0)).start()
-
-
-def scheduler(func, interval, delay=0):
-    Timer(interval, task, (func, interval, delay)).start()
-
-def say_hello():
-    # sleep(0.7)
-    print(str(time.time()) + ' : hello')
-# scheduler(say_hello, 1, 0)
-
-
-
-
-
-# s = sched.scheduler(time.time, time.sleep)
-# def do_something(sc):
-#     refresh()
-#     # do your stuff
-#     sc.enter(5, 1, do_something, (sc,))
+# scheduler = APScheduler()
+# scheduler.init_app(app)
+# scheduler.start()
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     # addData()
+    logger.info('foorbar')
     print('There is none root.')
     return render_template("index.html",message='This is IDB dashboard !!!')
 
 @app.route('/hello', methods=['GET', 'POST'])
 def home2():
+    logger.info('foorbar')
     return 'Hello World!'
 
 
