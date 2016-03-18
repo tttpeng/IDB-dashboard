@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask import render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.sqlalchemy import SQLAlchemy
-# from flask_apscheduler import APScheduler
+from flask_apscheduler import APScheduler
 from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -18,6 +18,7 @@ from threading import Timer
 
 from app import create_app
 from app.models import Product
+from app.models import db
 
 
 app = create_app()
@@ -63,9 +64,9 @@ def storageWorking1(is_operation):
 
 #
 #
-# scheduler = APScheduler()
-# scheduler.init_app(app)
-# scheduler.start()
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
 #------
 
