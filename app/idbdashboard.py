@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask import render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_apscheduler import APScheduler
+# from flask_apscheduler import APScheduler
 from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -23,18 +23,6 @@ from app.models import Product
 app = create_app()
 
 
-class Config(object):
-    JOBS = [
-        {
-            'id': 'refresh',
-            'func': '__main__:refresh',
-            'args': (1,2),
-            'trigger': 'interval',
-            'seconds': 3
-        }
-    ]
-
-    SCHEDULER_VIEWS_ENABLED = True
 
 
 def job1(a, b):
@@ -74,7 +62,6 @@ def storageWorking1(is_operation):
 
 
 #
-# app.config.from_object(Config())
 #
 # scheduler = APScheduler()
 # scheduler.init_app(app)
