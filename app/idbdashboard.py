@@ -11,9 +11,10 @@ import time
 import hashlib
 import os, sched
 from models import Product
-from app import models
+# from app import models
 from flask.ext.sqlalchemy import SQLAlchemy
 from models import db
+import models
 # from app import create_app
 from __init__ import create_app
 
