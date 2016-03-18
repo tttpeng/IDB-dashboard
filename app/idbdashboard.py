@@ -20,6 +20,31 @@ from app import create_app
 from app.models import Product
 from app.models import db
 
+import logging
+
+# 创建一个logger
+logger = logging.getLogger('mylogger')
+logger.setLevel(logging.DEBUG)
+
+# 创建一个handler，用于写入日志文件
+fh = logging.FileHandler('test.log')
+fh.setLevel(logging.DEBUG)
+
+# 再创建一个handler，用于输出到控制台
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# 定义handler的输出格式
+formatter = logging.Formatter(' %(pathname)s - %(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+
+# 给logger添加handler
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+#该代码片段来自于: http://www.sharejs.com/codes/python/6248
+
 
 app = create_app()
 
@@ -51,6 +76,8 @@ def refresh(a,b):
 
 
 def storageWorking1(is_operation):
+    # 记录一条日志
+    logger.info('foorbar')
     pp = Product.query.filter_by(name='WORKING_V2.0.0').first()
     if pp == None:
         pp = Product()
