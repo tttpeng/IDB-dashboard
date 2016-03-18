@@ -101,11 +101,11 @@ def storageWorking1(is_operation):
 
 
 #
-app.config.from_object(Config())
-
-scheduler = APScheduler()
-scheduler.init_app(app)
-scheduler.start()
+# app.config.from_object(Config())
+#
+# scheduler = APScheduler()
+# scheduler.init_app(app)
+# scheduler.start()
 
 #------
 
