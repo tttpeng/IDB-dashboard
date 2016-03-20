@@ -9,11 +9,11 @@ from urllib import request
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 from datetime import datetime
-import time
 import hashlib
 import os, sched
 import pymysql
 from threading import Timer
+import time
 
 from app import create_app
 from app.models import Product
@@ -55,10 +55,38 @@ app = create_app()
 logger.info('foorbar')
 
 
+
+
+
+# print (request.urlopen('https://www.douban.com/photos/album/1623990634/').read().decode('utf-8'))
+
+
+# time = int(time.time()) * 1000
+#
+#
+# password = '123:'+ str(time)# print('没有加密的密码'+password)
+# md5 = hashlib.md5('123:1458032950377'.encode("utf-8"))
+# encryptPassword = md5.hexdigest()
+#
+# print('加密之后的密码'+md5.hexdigest())
+# print(time)
+# # NSString *encryptPassword = [[NSString stringWithFormat:@"%@:%lld", password, time] md5];
+#
+
+
 def job1(a, b):
     print(str(a) + ' ' + str(b))
 def refresh():
-    req = Request("http://www.v2ex.com/")
+    # print (time.time())
+
+    currentTime = int(time.time()) * 1000
+    print(currentTime)
+    password = '123:'+ str(currentTime)# print('没有加密的密码'+password)
+    md5 = hashlib.md5(password.encode("utf-8"))
+    encryptPassword = md5.hexdigest()
+
+    url = 'https://www.sfaessentials.com/service/Login?appId=SFAWKCTR&username=JJz83571&password='+encryptPassword+'&appv=1.0.0605.1000&time='+currentTime+'&tick=1458465920.940269'
+    req = Request(url)
     try:
         response = urlopen(req)
     except HTTPError as e:
