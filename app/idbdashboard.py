@@ -14,12 +14,16 @@ import os, sched
 import pymysql
 from threading import Timer
 import time
+import re
 
 from app import create_app
 from app.models import Product
 from app.models import db
-
 import logging
+import requests
+import base64
+from Crypto.Cipher import AES
+import json
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -84,27 +88,57 @@ def refresh():
     password = '123:'+ str(currentTime)# print('没有加密的密码'+password)
     md5 = hashlib.md5(password.encode("utf-8"))
     encryptPassword = md5.hexdigest()
-
-    url = 'https://www.sfaessentials.com/service/Login?appId=SFAWKCTR&username=JJz83571&password='+encryptPassword+'&appv=1.0.0605.1000&time='+currentTime+'&tick=1458465920.940269'
-    req = Request(url)
-    try:
-        response = urlopen(req)
-    except HTTPError as e:
-        print('The server couldnt fulfill the request.')
-        print('Error code: ', e.code)
-        storageWorking1(False)
-    except URLError as e:
-        print('We failed to reach a server.')
-        print('Reason: ', e.reason)
-        storageWorking1(False)
+    url = 'https://www.sfaessentials.com/service/Login?appId=SFAWKCTR&username=JJz83571&password='+encryptPassword+'&appv=1.0.0605.1000&time='+str(currentTime)+'&tick=1458465920.940269'
+    print(url)
+    headers = {'Platform': '1'}
+    r = requests.get(url,allow_redirects = False,headers = headers)
+    if r.status_code == 200:
+        storageWorking1(True)
     else:
-        print(response.status)
-        if response.status == 200:
-            storageWorking1(True)
-        else:
-            storageWorking1(False)
-        print("good!")
-        # print(response.read().decode("utf8"))
+        storageWorking1(False)
+
+    ttt = r.text
+    print(r.text)
+    sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
+    print('-------')
+    print(sss.encode('utf-8').decode('unicode'))
+    dic = json.loads(sss.encode('utf-8').decode('unicode'))
+    print(dic['Data'])
+    print('-------')
+
+
+
+
+
+def decrypt( key, enc ):
+    enc2 = base64.b64decode(enc)
+    cipher = AES.new(key, AES.MODE_ECB)
+    decrypted = cipher.decrypt(enc2).decode('utf-8')
+    return decrypted
+
+
+
+def unpad1(s):
+    return s[:-ord(s[len(s)-1:])]
+
+    # try:
+    #     response = urlopen(req)
+    # except HTTPError as e:
+    #     print('The server couldnt fulfill the request.')
+    #     print('Error code: ', e.code)
+    #     storageWorking1(False)
+    # except URLError as e:
+    #     print('We failed to reach a server.')
+    #     print('Reason: ', e.reason)
+    #     storageWorking1(False)
+    # else:
+    #     print(response.status)
+    #     if response.status == 200:
+    #         storageWorking1(True)
+    #     else:
+    #         storageWorking1(False)
+    #     print("good!")
+    #     print(response.read().decode("utf8"))
 
 def storageWorking1(is_operation):
     # 记录一条日志
@@ -142,7 +176,7 @@ def list_product():
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(refresh, 'interval', seconds=5)
+scheduler.add_job(refresh, 'interval', seconds=3)
 scheduler.start()
 # db.init_app(app)
 # db.app = app
