@@ -81,8 +81,6 @@ logger.info('foorbar')
 def job1(a, b):
     print(str(a) + ' ' + str(b))
 def refresh():
-    # print (time.time())
-
     currentTime = int(time.time()) * 1000
     print(currentTime)
     password = '123:'+ str(currentTime)# print('没有加密的密码'+password)
@@ -93,18 +91,16 @@ def refresh():
     headers = {'Platform': '1'}
     r = requests.get(url,allow_redirects = False,headers = headers)
     if r.status_code == 200:
+        ttt = r.text
+        sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
+        dic = json.loads(sss)
+        if len(dic['Data']['User']) > 0:
+            storageWorking1(True)
+        else:
+            storageWorking1(False)
         storageWorking1(True)
     else:
         storageWorking1(False)
-
-    ttt = r.text
-    print(r.text)
-    sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
-    print('-------')
-    print(sss.encode('utf-8').decode('unicode'))
-    dic = json.loads(sss.encode('utf-8').decode('unicode'))
-    print(dic['Data'])
-    print('-------')
 
 
 
@@ -113,8 +109,9 @@ def refresh():
 def decrypt( key, enc ):
     enc2 = base64.b64decode(enc)
     cipher = AES.new(key, AES.MODE_ECB)
-    decrypted = cipher.decrypt(enc2).decode('utf-8')
-    return decrypted
+    decrypted = cipher.decrypt(enc2)
+    s = bytearray(decrypted)
+    return s[:-11].decode('utf-8')
 
 
 
