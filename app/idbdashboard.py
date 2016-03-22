@@ -159,11 +159,11 @@ def list_product():
 
 #
 scheduler = BackgroundScheduler()
-scheduler.add_job(refresh, 'interval', seconds=100)
+scheduler.add_job(refresh, 'interval', seconds=300)
 scheduler.start()
 
 scheduler2 = BackgroundScheduler()
-scheduler2.add_job(refreshWorking2, 'interval', seconds=100)
+scheduler2.add_job(refreshWorking2, 'interval', seconds=300)
 scheduler2.start()
 
 # db.init_app(app)

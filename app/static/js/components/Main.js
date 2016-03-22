@@ -138,7 +138,7 @@ var Main = React.createClass({
               <TableRow key={index} selected={row.selected}>
                 <TableRowColumn>{row.name}</TableRowColumn>
                 <TableRowColumn style={{
-                color:'#7ed321'
+                color:this.state.products[index].is_operation == 'operation' ? '#7ed321':'#ff123f'
                 }}>{row.is_operation}</TableRowColumn>
                 <TableRowColumn>{row.updateTime}</TableRowColumn>
               </TableRow>

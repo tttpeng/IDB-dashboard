@@ -54323,6 +54323,7 @@
 	  },
 	
 	  render: function render() {
+	    var _this2 = this;
 	
 	    return _react2.default.createElement(
 	      _card2.default,
@@ -54393,7 +54394,7 @@
 	              _react2.default.createElement(
 	                _tableRowColumn2.default,
 	                { style: {
-	                    color: '#7ed321'
+	                    color: _this2.state.products[index].is_operation == 'operation' ? '#7ed321' : '#ff123f'
 	                  } },
 	                row.is_operation
 	              ),
