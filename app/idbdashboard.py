@@ -1,20 +1,14 @@
-from flask import Flask, render_template, request
-from flask import render_template, request, jsonify
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request,jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String,  create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from urllib import request
-from urllib.request import Request, urlopen
-from urllib.error import URLError, HTTPError
 from datetime import datetime
 import hashlib
 import os, sched
 import pymysql
 from threading import Timer
 import time
-import re
 
 from app import create_app
 from app.models import Product
@@ -61,25 +55,6 @@ logger.info('foorbar')
 
 
 
-
-# print (request.urlopen('https://www.douban.com/photos/album/1623990634/').read().decode('utf-8'))
-
-
-# time = int(time.time()) * 1000
-#
-#
-# password = '123:'+ str(time)# print('没有加密的密码'+password)
-# md5 = hashlib.md5('123:1458032950377'.encode("utf-8"))
-# encryptPassword = md5.hexdigest()
-#
-# print('加密之后的密码'+md5.hexdigest())
-# print(time)
-# # NSString *encryptPassword = [[NSString stringWithFormat:@"%@:%lld", password, time] md5];
-#
-
-
-def job1(a, b):
-    print(str(a) + ' ' + str(b))
 def refresh():
     currentTime = int(time.time()) * 1000
     print(currentTime)
@@ -93,14 +68,41 @@ def refresh():
     if r.status_code == 200:
         ttt = r.text
         sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
+        print(sss)
         dic = json.loads(sss)
-        if len(dic['Data']['User']) > 0:
-            storageWorking1(True)
-        else:
+        try:
+            s = dic['Data']['User']
+        except:
             storageWorking1(False)
-        storageWorking1(True)
+        else:
+            storageWorking1(True)
     else:
         storageWorking1(False)
+
+def refreshWorking2():
+    currentTime = int(time.time()) * 1000
+    print(currentTime)
+    password = '123:'+ str(currentTime)# print('没有加密的密码'+password)
+    md5 = hashlib.md5(password.encode("utf-8"))
+    encryptPassword = md5.hexdigest()
+    url = 'http://dev.ideabinder.com/service/Login?appId=SFAWKCTR&username=LLB97483&password='+encryptPassword+'&appv=1.0.0605.1000&time='+str(currentTime)+'&tick=1458465920.940269'
+    print(url)
+    headers = {'Platform': '1'}
+    r = requests.get(url,allow_redirects = False,headers = headers)
+    if r.status_code == 200:
+        ttt = r.text
+        # sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
+        print(ttt)
+        dic = json.loads(ttt)
+        try:
+            s = dic['Data']['User']
+        except:
+            storageWorking2(False)
+        else:
+            storageWorking2(True)
+    else:
+        storageWorking2(False)
+
 
 
 
@@ -111,44 +113,35 @@ def decrypt( key, enc ):
     cipher = AES.new(key, AES.MODE_ECB)
     decrypted = cipher.decrypt(enc2)
     s = bytearray(decrypted)
-    return s[:-11].decode('utf-8')
-
+    s = s.decode('utf-8').replace('\x00', '')
+    return s
 
 
 def unpad1(s):
     return s[:-ord(s[len(s)-1:])]
 
-    # try:
-    #     response = urlopen(req)
-    # except HTTPError as e:
-    #     print('The server couldnt fulfill the request.')
-    #     print('Error code: ', e.code)
-    #     storageWorking1(False)
-    # except URLError as e:
-    #     print('We failed to reach a server.')
-    #     print('Reason: ', e.reason)
-    #     storageWorking1(False)
-    # else:
-    #     print(response.status)
-    #     if response.status == 200:
-    #         storageWorking1(True)
-    #     else:
-    #         storageWorking1(False)
-    #     print("good!")
-    #     print(response.read().decode("utf8"))
-
 def storageWorking1(is_operation):
-    # 记录一条日志
-    logger.info('foorbar')
+    pp = Product.query.filter_by(name='WORKING_V1.0.0').first()
+    if pp == None:
+        pp = Product()
+        pp.id = '1'
+        pp.name = 'WORKING_V1.0.0'
+    pp.is_operation = is_operation
+    pp.updateTime = datetime.now()
+    db.session.add(pp)
+    db.session.commit()
+
+def storageWorking2(is_opertaion):
     pp = Product.query.filter_by(name='WORKING_V2.0.0').first()
     if pp == None:
         pp = Product()
         pp.id = '2'
         pp.name = 'WORKING_V2.0.0'
-    pp.is_operation = is_operation
+    pp.is_operation = is_opertaion
     pp.updateTime = datetime.now()
     db.session.add(pp)
     db.session.commit()
+
 
 
 
@@ -171,10 +164,15 @@ def list_product():
 
 
 
-
+#
 scheduler = BackgroundScheduler()
 scheduler.add_job(refresh, 'interval', seconds=3)
 scheduler.start()
+
+scheduler2 = BackgroundScheduler()
+scheduler2.add_job(refreshWorking2, 'interval', seconds=3)
+scheduler2.start()
+
 # db.init_app(app)
 # db.app = app
 # Base = declarative_base()
