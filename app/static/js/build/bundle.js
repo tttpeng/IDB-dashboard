@@ -54255,11 +54255,15 @@
 	    margin: '20px auto 10px'
 	  },
 	  tableRowColum: {
-	    width: 100
+	    width: 100,
+	    backgroundColor: '#ff123f'
+	  },
+	  tables: {
+	    backgroundColor: '#fff'
 	  },
 	  dddd: {
-	    width: 600,
-	    margin: '0px auto',
+	    width: '760px',
+	    margin: '0 auto',
 	    top: 200,
 	    position: 'relative'
 	  }
@@ -54268,65 +54272,6 @@
 	    * which incorporates components providedby material-ui.
 	    */
 	
-	var tilesData = [{
-	  img: 'images/grid-list/00-52-29-429_640.jpg',
-	  title: 'Breakfast',
-	  author: 'jill111'
-	}, {
-	  img: 'images/grid-list/burger-827309_640.jpg',
-	  title: 'Tasty burger',
-	  author: 'pashminu'
-	}, {
-	  img: 'images/grid-list/camera-813814_640.jpg',
-	  title: 'Camera',
-	  author: 'Danson67'
-	}, {
-	  img: 'images/grid-list/morning-819362_640.jpg',
-	  title: 'Morning',
-	  author: 'fancycrave1'
-	}, {
-	  img: 'images/grid-list/hats-829509_640.jpg',
-	  title: 'Hats',
-	  author: 'Hans'
-	}, {
-	  img: 'images/grid-list/honey-823614_640.jpg',
-	  title: 'Honey',
-	  author: 'fancycravel'
-	}, {
-	  img: 'images/grid-list/vegetables-790022_640.jpg',
-	  title: 'Vegetables',
-	  author: 'jill111'
-	}, {
-	  img: 'images/grid-list/water-plant-821293_640.jpg',
-	  title: 'Water plant',
-	  author: 'BkrmadtyaKarki'
-	}];
-	
-	var tableData = [{
-	  name: 'John Smith',
-	  status: 'Employed',
-	  selected: true
-	}, {
-	  name: 'Randal White',
-	  status: 'Unemployed'
-	}, {
-	  name: 'Stephanie Sanders',
-	  status: 'Employed',
-	  selected: true
-	}, {
-	  name: 'Steve Brown',
-	  status: 'Employed'
-	}, {
-	  name: 'Joyce Whitten',
-	  status: 'Employed'
-	}, {
-	  name: 'Samuel Roberts',
-	  status: 'Employed'
-	}, {
-	  name: 'Adam Moore',
-	  status: 'Employed'
-	}];
-	
 	var Main = _react2.default.createClass({
 	  displayName: 'Main',
 	
@@ -54334,14 +54279,25 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      products: [],
-	      displayRowCheckbox: false
+	      displayRowCheckbox: false,
+	      adjustForCheckbox: false
 	    };
+	  },
+	
+	  handleResize: function handleResize(e) {
+	    console.log('handResize');
+	
+	    var el = _react2.default.findDOMNode(this);
+	    console.log(window.innerWidth);
+	    console.log(window.screen.width);
+	
+	    el.style.width = window.innerWidth;
 	  },
 	
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 	
-	    console.log('got text');
+	    //window.addEventListener('resize', this.handleResize);
 	    var result = fetch('/products');
 	    result.then(function (response) {
 	      console.log('1111got text');
@@ -54360,19 +54316,6 @@
 	  },
 	
 	  submitMessage: function submitMessage(products) {
-	    //products.map( (row, index) => (
-	    //
-	    //    //console.log(row);
-	    //
-	    //if (row.is_operation)
-	    //{
-	    //  row.is_operation = 'operationing';
-	    //}
-	    //else
-	    //{
-	    //  row.is_operation = 'fail';
-	    //}
-	    //))
 	
 	    this.setState({
 	      products: products
@@ -54396,6 +54339,41 @@
 	          onRowSelection: this._onRowSelection
 	        },
 	        _react2.default.createElement(
+	          _tableHeader2.default
+	          //style={styles.tables}
+	          ,
+	          { displaySelectAll: this.state.adjustForCheckbox,
+	            adjustForCheckbox: this.state.adjustForCheckbox },
+	          _react2.default.createElement(
+	            _tableRow2.default,
+	            null,
+	            _react2.default.createElement(
+	              _tableHeaderColumn2.default,
+	              { colSpan: '3', tooltip: 'Super Header', style: { textAlign: 'center', fontSize: 20 } },
+	              'IDB DashBoard'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _tableRow2.default,
+	            null,
+	            _react2.default.createElement(
+	              _tableHeaderColumn2.default,
+	              { tooltip: '产品名称' },
+	              '产品名称'
+	            ),
+	            _react2.default.createElement(
+	              _tableHeaderColumn2.default,
+	              { tooltip: '运行状态' },
+	              '运行状态'
+	            ),
+	            _react2.default.createElement(
+	              _tableHeaderColumn2.default,
+	              { tooltip: '最后更新时间' },
+	              '最后更新时间'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
 	          _tableBody2.default,
 	          {
 	            displayRowCheckbox: this.state.displayRowCheckbox,
@@ -54414,7 +54392,9 @@
 	              ),
 	              _react2.default.createElement(
 	                _tableRowColumn2.default,
-	                null,
+	                { style: {
+	                    color: '#7ed321'
+	                  } },
 	                row.is_operation
 	              ),
 	              _react2.default.createElement(

@@ -31,119 +31,58 @@ const styles = {
     margin: '20px auto 10px',
   },
   tableRowColum: {
-    width:100,
+    width: 100,
+    backgroundColor: '#ff123f',
+  },
+  tables: {
+    backgroundColor: '#fff',
   },
   dddd: {
-    width : 600,
-    margin:'0px auto',
+    width: '760px',
+    margin: '0 auto',
     top: 200,
     position: 'relative',
   }
 };
 
-const tilesData = [
-  {
-    img: 'images/grid-list/00-52-29-429_640.jpg',
-    title: 'Breakfast',
-    author: 'jill111',
-  },
-  {
-    img: 'images/grid-list/burger-827309_640.jpg',
-    title: 'Tasty burger',
-    author: 'pashminu',
-  },
-  {
-    img: 'images/grid-list/camera-813814_640.jpg',
-    title: 'Camera',
-    author: 'Danson67',
-  },
-  {
-    img: 'images/grid-list/morning-819362_640.jpg',
-    title: 'Morning',
-    author: 'fancycrave1',
-  },
-  {
-    img: 'images/grid-list/hats-829509_640.jpg',
-    title: 'Hats',
-    author: 'Hans',
-  },
-  {
-    img: 'images/grid-list/honey-823614_640.jpg',
-    title: 'Honey',
-    author: 'fancycravel',
-  },
-  {
-    img: 'images/grid-list/vegetables-790022_640.jpg',
-    title: 'Vegetables',
-    author: 'jill111',
-  },
-  {
-    img: 'images/grid-list/water-plant-821293_640.jpg',
-    title: 'Water plant',
-    author: 'BkrmadtyaKarki',
-  },
-];
-
-const tableData = [
-  {
-    name: 'John Smith',
-    status: 'Employed',
-    selected: true,
-  },
-  {
-    name: 'Randal White',
-    status: 'Unemployed',
-  },
-  {
-    name: 'Stephanie Sanders',
-    status: 'Employed',
-    selected: true,
-  },
-  {
-    name: 'Steve Brown',
-    status: 'Employed',
-  },
-  {
-    name: 'Joyce Whitten',
-    status: 'Employed',
-  },
-  {
-    name: 'Samuel Roberts',
-    status: 'Employed',
-  },
-  {
-    name: 'Adam Moore',
-    status: 'Employed',
-  },
-];
-
 
 var Main = React.createClass({
 
   getInitialState: function () {
-    return{
-      products:[],
-      displayRowCheckbox: false
+    return {
+      products: [],
+      displayRowCheckbox: false,
+      adjustForCheckbox: false
     }
   },
 
 
+
+    handleResize: function(e) {
+      console.log('handResize');
+
+      let el = React.findDOMNode(this);
+      console.log(window.innerWidth);
+      console.log(window.screen.width);
+
+      el.style.width = window.innerWidth;
+  },
+
   componentDidMount: function () {
-
-    console.log('got text');
+    //window.addEventListener('resize', this.handleResize);
     var result = fetch('/products');
-    result.then(function(response) {
-      console.log('1111got text');
-      console.log('response', response);
-      console.log('header', response.headers.get('Content-Type'));
-      return response.json()
-    })
-        .then(json =>  {
-      var products = json.result;
-      console.log('got text', this);
-      this.submitMessage(products);
+    result.then(function (response) {
+        console.log('1111got text');
+        console.log('response', response);
+        console.log('header', response.headers.get('Content-Type'));
+        return response.json()
+      })
+      .then(json => {
+        var products = json.result;
+        console.log('got text', this);
+        this.submitMessage(products);
 
-    }).catch(function(ex) {
+      }).catch(function (ex) {
       console.log('failed', ex)
     });
 
@@ -153,21 +92,7 @@ var Main = React.createClass({
   },
 
 
-
-  submitMessage : function (products) {
-    //products.map( (row, index) => (
-    //
-    //    //console.log(row);
-    //
-    //if (row.is_operation)
-    //{
-    //  row.is_operation = 'operationing';
-    //}
-    //else
-    //{
-    //  row.is_operation = 'fail';
-    //}
-    //))
+  submitMessage: function (products) {
 
     this.setState({
       products: products
@@ -178,34 +103,53 @@ var Main = React.createClass({
 
 
     return (
-        <Card style={styles.dddd}>
-          <Table
-              style={styles.tables}
-              height={this.state.height}
-              fixedHeader={this.state.fixedHeader}
-              fixedFooter={this.state.fixedFooter}
-              selectable={this.state.selectable}
-              multiSelectable={this.state.multiSelectable}
-              onRowSelection={this._onRowSelection}
+      <Card style={styles.dddd}>
+        <Table
+          style={styles.tables}
+          height={this.state.height}
+          fixedHeader={this.state.fixedHeader}
+          fixedFooter={this.state.fixedFooter}
+          selectable={this.state.selectable}
+          multiSelectable={this.state.multiSelectable}
+          onRowSelection={this._onRowSelection}
+        >
+          <TableHeader
+            //style={styles.tables}
+            displaySelectAll={this.state.adjustForCheckbox}
+            adjustForCheckbox={this.state.adjustForCheckbox}>
+            <TableRow>
+              <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{textAlign: 'center',fontSize:20}} >
+                IDB DashBoard
+              </TableHeaderColumn>
+            </TableRow>
+            <TableRow>
+              <TableHeaderColumn tooltip="产品名称">产品名称</TableHeaderColumn>
+              <TableHeaderColumn tooltip="运行状态">运行状态</TableHeaderColumn>
+              <TableHeaderColumn tooltip="最后更新时间">最后更新时间</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody
+            displayRowCheckbox={this.state.displayRowCheckbox}
+            deselectOnClickaway={this.state.deselectOnClickaway}
+            showRowHover={this.state.showRowHover}
+            stripedRows={this.state.stripedRows}
           >
-            <TableBody
-                displayRowCheckbox={this.state.displayRowCheckbox}
-                deselectOnClickaway={this.state.deselectOnClickaway}
-                showRowHover={this.state.showRowHover}
-                stripedRows={this.state.stripedRows}
-            >
-              {this.state.products.map( (row, index) => (
-                  <TableRow key={index} selected={row.selected}>
-                    <TableRowColumn>{row.name}</TableRowColumn>
-                    <TableRowColumn>{row.is_operation}</TableRowColumn>
-                    <TableRowColumn>{row.updateTime}</TableRowColumn>
-                  </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Card>
+            {this.state.products.map((row, index) => (
+              <TableRow key={index} selected={row.selected}>
+                <TableRowColumn>{row.name}</TableRowColumn>
+                <TableRowColumn style={{
+                color:'#7ed321'
+                }}>{row.is_operation}</TableRowColumn>
+                <TableRowColumn>{row.updateTime}</TableRowColumn>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Card>
     );
   }
+
+
 });
 
 module.exports = Main
