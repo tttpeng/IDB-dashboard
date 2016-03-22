@@ -68,7 +68,7 @@ def refresh():
     if r.status_code == 200:
         ttt = r.text
         sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
-        print(sss)
+        logging.info(sss)
         dic = json.loads(sss)
         try:
             s = dic['Data']['User']
@@ -92,7 +92,7 @@ def refreshWorking2():
     if r.status_code == 200:
         ttt = r.text
         # sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
-        print(ttt)
+        logging.info(ttt)
         dic = json.loads(ttt)
         try:
             s = dic['Data']['User']
