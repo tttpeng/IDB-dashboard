@@ -49,11 +49,6 @@ app = create_app()
 
 
 
-    # 记录一条日志
-logger.info('foorbar')
-
-
-
 
 def refresh():
     currentTime = int(time.time()) * 1000
@@ -147,13 +142,11 @@ def storageWorking2(is_opertaion):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    logger.info('foorbar')
     print('There is none root.')
     return render_template("index.html",message='This is IDB dashboard !!!')
 
 @app.route('/hello', methods=['GET', 'POST'])
 def home2():
-    logger.info('foorbar')
     return 'Hello World!'
 
 
@@ -166,11 +159,11 @@ def list_product():
 
 #
 scheduler = BackgroundScheduler()
-scheduler.add_job(refresh, 'interval', seconds=3)
+scheduler.add_job(refresh, 'interval', seconds=5)
 scheduler.start()
 
 scheduler2 = BackgroundScheduler()
-scheduler2.add_job(refreshWorking2, 'interval', seconds=3)
+scheduler2.add_job(refreshWorking2, 'interval', seconds=5)
 scheduler2.start()
 
 # db.init_app(app)
