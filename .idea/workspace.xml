@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1e271f8b-11e4-498a-8e7e-3dce7d90bab8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/build/bundle.js" afterPath="$PROJECT_DIR$/app/static/js/build/bundle.js" />
-    </list>
+    <list default="true" id="1e271f8b-11e4-498a-8e7e-3dce7d90bab8" name="Default" comment="" />
     <ignored path="idbdashboard.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
