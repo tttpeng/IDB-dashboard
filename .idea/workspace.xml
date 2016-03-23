@@ -4,7 +4,6 @@
     <list default="true" id="1e271f8b-11e4-498a-8e7e-3dce7d90bab8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/build/bundle.js" afterPath="$PROJECT_DIR$/app/static/js/build/bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/build/bundle.js.map" afterPath="$PROJECT_DIR$/app/static/js/build/bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/components/Main.js" afterPath="$PROJECT_DIR$/app/static/js/components/Main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/js/index.js" afterPath="$PROJECT_DIR$/app/static/js/index.js" />
     </list>
     <ignored path="idbdashboard.iws" />
@@ -131,8 +130,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/static/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.100890204">
-              <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.20178041">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1198,8 +1197,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/static/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.100890204">
-          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.20178041">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>

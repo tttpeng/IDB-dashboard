@@ -8634,6 +8634,12 @@
 
 	"use strict";
 	
+	var _es6Promise = __webpack_require__(/*! es6-promise */ 563);
+	
+	var _es6Promise2 = _interopRequireDefault(_es6Promise);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var React = __webpack_require__(/*! react */ 292);
 	//var MaterialUI = require("material-ui")
 	var ReactDOM = __webpack_require__(/*! react-dom */ 448);
@@ -8641,6 +8647,9 @@
 	var fetch = __webpack_require__(/*! whatwg-fetch */ 557);
 	var injectTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 558);
 	var Promise = __webpack_require__(/*! es6-promise */ 563).Promise;
+	
+	
+	_es6Promise2.default.polyfill();
 	injectTapEventPlugin();
 	
 	ReactDOM.render(React.createElement(Main, null), document.getElementById('message-board-container'));

@@ -5,6 +5,9 @@ var Main = require("./components/Main")
 var fetch = require('whatwg-fetch');
 var injectTapEventPlugin = require("react-tap-event-plugin")
 var Promise = require('es6-promise').Promise;
+import es6promise from 'es6-promise';
+
+es6promise.polyfill();
 injectTapEventPlugin();
 
 ReactDOM.render(
