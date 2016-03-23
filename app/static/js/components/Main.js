@@ -14,6 +14,10 @@ import TableFooter from 'material-ui/lib/table/table-footer';
 import TextField from 'material-ui/lib/text-field';
 import Toggle from 'material-ui/lib/toggle';
 import Card from 'material-ui/lib/card/card';
+import es6promise from 'es6-promise';
+
+es6promise.polyfill();
+
 
 
 

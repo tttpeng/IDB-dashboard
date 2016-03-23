@@ -28682,7 +28682,18 @@
 	
 	var _card2 = _interopRequireDefault(_card);
 	
+	var _es6Promise = __webpack_require__(/*! es6-promise */ 563);
+	
+	var _es6Promise2 = _interopRequireDefault(_es6Promise);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * In this file, we create a React component
+	 * which incorporates components providedby material-ui.
+	 */
+	
+	_es6Promise2.default.polyfill();
 	
 	var styles = {
 	  propContainerStyle: {
@@ -28706,10 +28717,7 @@
 	    top: 200,
 	    position: 'relative'
 	  }
-	}; /**
-	    * In this file, we create a React component
-	    * which incorporates components providedby material-ui.
-	    */
+	};
 	
 	var Main = _react2.default.createClass({
 	  displayName: 'Main',
@@ -42736,7 +42744,7 @@
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
