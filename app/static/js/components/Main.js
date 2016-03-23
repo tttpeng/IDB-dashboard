@@ -119,7 +119,7 @@ var Main = React.createClass({
             adjustForCheckbox={this.state.adjustForCheckbox}>
             <TableRow>
               <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{textAlign: 'center',fontSize:20}} >
-                IDB DashBoard
+                IDB Dashboard
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
