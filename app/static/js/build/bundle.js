@@ -54351,7 +54351,7 @@
 	            _react2.default.createElement(
 	              _tableHeaderColumn2.default,
 	              { colSpan: '3', tooltip: 'Super Header', style: { textAlign: 'center', fontSize: 20 } },
-	              'IDB DashBoard'
+	              'IDB Dashboard'
 	            )
 	          ),
 	          _react2.default.createElement(
