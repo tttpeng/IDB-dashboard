@@ -98,7 +98,30 @@ def refreshWorking2():
     else:
         storageWorking2(False)
 
-
+def refreshWorkingDSM():
+    currentTime = int(time.time()) * 1000
+    print(currentTime)
+    password = '123:'+ str(currentTime)# print('没有加密的密码'+password)
+    md5 = hashlib.md5(password.encode("utf-8"))
+    encryptPassword = md5.hexdigest()
+    url = 'https://www.sfaessentials.com/service/Login?appId=SFAWKCTD&username=Xdl12453&password='+encryptPassword+'&appv=1.0.0605.1000&time='+str(currentTime)+'&tick=1458709935.7343'
+    print(url)
+    headers = {'Platform': '1'}
+    r = requests.get(url,allow_redirects = False,headers = headers)
+    if r.status_code == 200:
+        ttt = r.text
+        sss = decrypt('ihlih*0037JOHT*)(PIJY*(()JI^)IO%',ttt)
+        logging.info(sss)
+        dic = json.loads(sss)
+        print(dic)
+        try:
+            s = dic['Data']['User']
+        except:
+            storageWorkingDSM(False)
+        else:
+            storageWorkingDSM(True)
+    else:
+        storageWorkingDSM(False)
 
 
 
@@ -137,6 +160,17 @@ def storageWorking2(is_opertaion):
     db.session.add(pp)
     db.session.commit()
 
+def storageWorkingDSM(is_opertaion):
+    pp = Product.query.filter_by(name='WORKING_DSM_V1.0.0').first()
+    if pp == None:
+        pp = Product()
+        pp.id = '3'
+        pp.name = 'WORKING_DSM_V1.0.0'
+    pp.is_operation = is_opertaion
+    pp.updateTime = datetime.now()
+    db.session.add(pp)
+    db.session.commit()
+
 
 
 
@@ -157,7 +191,7 @@ def list_product():
 
 
 
-#
+
 scheduler = BackgroundScheduler()
 scheduler.add_job(refresh, 'interval', seconds=300)
 scheduler.start()
@@ -165,6 +199,10 @@ scheduler.start()
 scheduler2 = BackgroundScheduler()
 scheduler2.add_job(refreshWorking2, 'interval', seconds=300)
 scheduler2.start()
+
+scheduler3 = BackgroundScheduler()
+scheduler3.add_job(refreshWorkingDSM, 'interval', seconds=300)
+scheduler3.start()
 
 # db.init_app(app)
 # db.app = app
