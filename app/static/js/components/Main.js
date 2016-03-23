@@ -16,7 +16,7 @@ import Toggle from 'material-ui/lib/toggle';
 import Card from 'material-ui/lib/card/card';
 import es6promise from 'es6-promise';
 
-Promise.polyfill();
+es6promise.polyfill()
 
 
 
