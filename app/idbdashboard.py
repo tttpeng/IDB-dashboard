@@ -124,7 +124,27 @@ def refreshWorkingDSM():
         storageWorkingDSM(False)
 
 
-
+def refreshKnowledge():
+    currentTime = int(time.time()) * 1000
+    print(currentTime)
+    password = '123:'+ str(currentTime)# print('没有加密的密码'+password)
+    md5 = hashlib.md5(password.encode("utf-8"))
+    encryptPassword = md5.hexdigest()
+    url = 'http://dev.ideabinder.com/service/Login?appId=SFAWKCTR&username=Llb97483&password='+encryptPassword+'&tik=1458714486.077956&appv=1.0.0&time='+str(currentTime)
+    print(url)
+    r = requests.get(url,allow_redirects = False)
+    if r.status_code == 200:
+        ttt = r.text
+        logging.info(ttt)
+        dic = json.loads(ttt)
+        try:
+            s = dic['Data']['User']
+        except:
+            storageKnowledge(False)
+        else:
+            storageKnowledge(True)
+    else:
+        storageKnowledge(False)
 
 def decrypt( key, enc ):
     enc2 = base64.b64decode(enc)
@@ -172,6 +192,17 @@ def storageWorkingDSM(is_opertaion):
     db.session.commit()
 
 
+def storageKnowledge(is_opertaion):
+    pp = Product.query.filter_by(name='KNOWLEDGE_V1.1.0').first()
+    if pp == None:
+        pp = Product()
+        pp.id = '4'
+        pp.name = 'KNOWLEDGE_V1.1.0'
+    pp.is_operation = is_opertaion
+    pp.updateTime = datetime.now()
+    db.session.add(pp)
+    db.session.commit()
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -203,6 +234,10 @@ scheduler2.start()
 scheduler3 = BackgroundScheduler()
 scheduler3.add_job(refreshWorkingDSM, 'interval', seconds=300)
 scheduler3.start()
+
+scheduler4 = BackgroundScheduler()
+scheduler4.add_job(refreshKnowledge, 'interval', seconds=300)
+scheduler4.start()
 
 # db.init_app(app)
 # db.app = app
