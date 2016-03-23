@@ -5,7 +5,7 @@ var webpack = require('webpack')
 
 module.exports = {
     entry: {
-        index: "./index.js"
+        index:  ['babel-polyfill', './index.js']
     },
     output: {
         path: "./build",
