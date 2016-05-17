@@ -220,6 +220,23 @@ def list_product():
     print(Product.list_category())
     return jsonify(result=Product.list_category())
 
+@app.route('/allGroup.json',methods=['GET'])
+def all():
+    payload = {'uKey': '8f9d205b1aaee0ff18353cc091c4908d', '_api_key': 'ca1cbd6c6323f55e3d2364287dcd49e6'}
+    r = requests.post('http://www.pgyer.com/apiv1/userAppGroup/listAll',data=payload)
+    print(r.text)
+    return r.text
+
+@app.route('/allGroupApp.json',methods=['POST'])
+def group():
+    payload = {'userAppGroupKey': request.form['groupKey'], '_api_key': 'ca1cbd6c6323f55e3d2364287dcd49e6'}
+    r = requests.post('http://www.pgyer.com/apiv1/userAppGroup/view',data=payload)
+    print(r.text)
+    return r.text
+
+
+
+
 
 
 
